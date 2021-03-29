@@ -1,0 +1,51 @@
+import java.awt.*;
+import javax.swing.*;
+
+import java.awt.*;
+import javax.swing.*;
+
+class MyComponent extends JComponent
+{
+ public void paint(Graphics g)
+ {
+  g.drawString("Java Graphics Example by KEAD", 150, 20);
+  //g.drawLine(100, 100, 400, 300);
+  //g.drawLine(400, 300, 200, 300);
+  
+  int y1 = 50;
+  int y2 = 450;
+  int x1, x2;
+  int step = 50;
+  for(x1 = 50; x1<500; x1=x1 + step)
+  {
+   for(x2 = 450; x2>0; x2 = x2 - step)
+   {
+    g.drawLine(x1, y1  , x2, y2);
+    g.drawLine(y1, x1  , y2, x2);
+   }
+  }
+ }
+}
+
+class Java2D extends JFrame
+{
+ public Java2D()
+ {
+  this.setTitle("Java 2D");
+  this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+  this.setSize(500, 550);
+  
+  this.setVisible(true);
+  
+  MyComponent mc = new MyComponent();
+  this.add(mc);
+ }
+}
+
+public class Main {
+ public static void main(String[] args) {
+  Java2D jFrame = new Java2D();
+
+ }
+
+} 

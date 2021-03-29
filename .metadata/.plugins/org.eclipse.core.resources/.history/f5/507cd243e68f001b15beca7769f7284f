@@ -1,0 +1,29 @@
+import java.awt.*;
+import javax.swing.*;
+
+public class Main {
+
+	public static void main(String[] args) {
+		JFrame f = new JFrame();        
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //f.setLocationRelativeTo(null); //자동으로 화면 중앙에 배치
+        f.setSize(1000, 800);
+        f.setVisible(true);    
+        
+        MyGraphic g = new MyGraphic();      
+        f.add(g);    
+
+	}
+
+}
+
+class MyGraphic extends JButton{
+    
+    public void paintComponent(Graphics g){
+                
+        System.out.println(1);
+        g.drawLine(0,0,100,50);
+
+    }   
+    
+}
