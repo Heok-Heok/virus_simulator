@@ -32,6 +32,9 @@ public class Vaccine {
 	public static double getProgress() {
 		return research_progress;
 	}
+	public static int getStep() {
+		return current_step;
+	}
 	public static double getSpeed() {
 		return research_speed;
 	}

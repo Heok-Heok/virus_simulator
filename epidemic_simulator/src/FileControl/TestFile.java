@@ -7,7 +7,9 @@ import DataControl.*;
 public class TestFile {
 
 	public static void main(String[] args) {
-		json_test();
+		//json_test();
+		//policyListReadTest();
+		policyTest();
 		System.out.println("Done!");
 		
 	}
@@ -133,5 +135,75 @@ public class TestFile {
 				}
 			}	
 		}
+	}
+	static void policyListReadTest() {
+		PolicyData read_data = CSVcontrol.readCSV_policy(37);
+		policy [] policy_list = new policy[read_data.getNum()];
+		
+		String[][] policy_info = read_data.getPolicyInfromation();
+		int[][] policy_property = read_data.getPolicyProperty();
+		
+		for (int i=0; i<read_data.getNum(); i++) {
+			policy_list[i] = new policy(i,0, i, policy_info[i], policy_property[i]);
+			policy_list[i].printPolicyInfo();
+		}
+	}
+	static void policyTest() {
+		CityControl.readPolicyData();
+		
+		int [][] list = policy.getRangeList();
+		int row = list.length;
+		int col;
+		
+		for(int i=0; i<row; i++) {
+			switch (i) {
+				case 0:
+					System.out.print("도시 단위 정책 : ");
+					break;
+				case 1:
+					System.out.print("국가 단위 정책 : ");
+					break;
+				case 2:
+					System.out.print("대외 정책 : ");
+					break;
+				case 3:
+					System.out.print("이벤트  정책 : ");
+					break;
+			}
+			col = list[i].length;
+			for (int j=0; j< col; j++) {
+				System.out.print(list[i][j] + " , ");
+			}
+			System.out.println();
+		}
+		
+		
+		
+		
+		CityControl.createTestCity();
+		/*
+		for (int i=0; i<list[0].length; i++) {
+			City.cityList.get(0).addPolicy(policy.policy_list[list[0][i]]);
+		}
+		*/
+		City.cityList.get(0).addPolicy(policy.policy_list[5]);
+		City.cityList.get(0).addPolicy(policy.policy_list[1]);
+		City.cityList.get(0).addPolicy(policy.policy_list[25]);
+		
+		for (int l=0; l<2; l++) {
+			int [][] check = policyApply.getPAL();
+			
+			row = check.length;
+			for(int i=0; i<row; i++) {
+				col = check[i].length;
+				System.out.print(i + "번째 도시 변화  : ");
+				for (int j=0; j<col; j++) {
+					System.out.print(check[i][j] + " ");
+				}
+				System.out.println();
+			}
+		}
+		
+		
 	}
 }

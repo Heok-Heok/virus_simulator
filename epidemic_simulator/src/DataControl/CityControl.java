@@ -1,9 +1,12 @@
 package DataControl;
 
+import FileControl.CSVcontrol;
+
 import Model.*;
 
+
 public class CityControl {
-	public static void createCity() {
+	public static void createCity(String filepath) {
 		
 	}
 	public static void createTestCity() {
@@ -11,11 +14,13 @@ public class CityControl {
 		
 		// 1. 도시 생성
 		City.cityList.clear();
+		//policyApply.pa.clear();
+		
 		for (int i=0; i<city_num; i++) {
 			if (i==0)
-				new City(i*100, i*100, 220000, 10);
+				new policyApply(new City(i*100, i*100, 220000, 10));
 			else
-				new City(i*100, i*100, 220000);
+				new policyApply(new City(i*100, i*100, 220000));
 		}
 		// 2. 도시 연결 관리
 		int [][] connection = new int[city_num][]; 
@@ -37,7 +42,17 @@ public class CityControl {
 		// 4. 백신 초기화
 		Vaccine.restVaccine(City.cityList);
 		
+		
+		
+		
 	}
+	public static void readPolicyData() {
+		// CSV 파일로 부터 Policy 정보를 가져온다.
+		int policy_num = 37; // 전체 정책 수
+		policy.policy_list = CSVcontrol.getPolicyList(policy_num);
+		return;
+	}
+	
 	public static String[] gameProgress() {
 		// 감염 진행, 인구 유동, 백신 연구, 백신 투여, 백신 생산
 		// 진행 후 log에 넣을 string 배열 리턴 

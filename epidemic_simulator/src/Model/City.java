@@ -7,6 +7,7 @@ public class City {
 	public static ArrayList<City> cityList = new ArrayList<City>();
 	
 	static int CityCount;		// 전체 도시수
+	static int mask_production;	// 마스크 생산 여부
 	
 	int x;
 	int y;
@@ -14,6 +15,8 @@ public class City {
 	int cityNum;				// 현재 도시 번호
 	int trust_index;			// 지지율, gg의 명칭을 바꿈 ㅋ
 	int capacity; 				// 수용가능 인원, 격리 가능한 인구를 의미 -> Virus Class에 넣을 까?
+	int plus_gold;				// 턴당 골드
+	
 	
 	LinkedList<policy> p_list = new LinkedList<policy>();
 	
@@ -68,6 +71,9 @@ public class City {
 	public int getNum() {
 		return this.cityNum;
 	}
+	public int getTrustIndex() {
+		return this.trust_index;
+	}
 	public LinkedList<policy> getPolicy(){
 		return this.p_list;
 	}
@@ -113,11 +119,11 @@ public class City {
 		}
 	}
 
-	void addPolicy(policy p) {
+	public void addPolicy(policy p) {
 		this.p_list.add(p);
 	}
 
-	void removePolicy() {
+	public void removePolicy() {
 		this.p_list.remove();
 	}
 
