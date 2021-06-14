@@ -34,6 +34,13 @@ public class Virus {
 		death_rate = d_rate;
 	}
 	
+	public static double getStaticInfection() {
+		return infection_rate;
+	}
+	public static double getStaticDeath() {
+		return death_rate;
+	}
+	
 	public void resetChanges() {	// 변화량 초기화
 		this.infection_change= 1;
 		this.death_change = 1;

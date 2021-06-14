@@ -19,6 +19,51 @@ public class JsonControl {
 		JSONObject whole_city = new JSONObject();
 		JSONArray citylist = new JSONArray();
 		
+		// City static class 정보 저장
+		JSONObject static_data = new JSONObject();
+		
+		// 1-1 전체 도시 수, 마스크 생산 여부
+		static_data.put("CityCount", City.CityCount);
+		static_data.put("mask_production", City.mask_production);
+		
+		// 1-2. 도시 연결 정보
+		JSONArray city_connection = new JSONArray();
+			for (int i=0; i<cities.size(); i++) {
+				JSONArray sub_connection= new JSONArray();
+				for (int j=0; j<cities.size(); j++) {
+					sub_connection.add(j, City.city_conn[i][j]);
+				}
+				city_connection.add(i, sub_connection);
+			}
+		static_data.put("connection", city_connection);
+		
+		// 1-3 바이러스 정보
+		static_data.put("Infection_rate", Virus.getStaticInfection());
+		static_data.put("Death_rate", Virus.getStaticDeath());
+		
+		// 1-4 백신 정보
+		JSONObject vaccine_data = new JSONObject();
+		vaccine_data.put("research_progress", Vaccine.getProgress());
+		vaccine_data.put("research_speed", Vaccine.getSpeed());
+		vaccine_data.put("current_step", Vaccine.getStep());
+		vaccine_data.put("vaccine_stock", Vaccine.getVstock());
+		
+		JSONArray city_vaccine_rate= new JSONArray();
+		JSONArray city_vaccine= new JSONArray();
+		double[] cv_rate = Vaccine.getVaccineCityRate();
+		int[] cv = Vaccine.getVaccineCity();
+		for (int i=0; i<cities.size(); i++) {
+			city_vaccine_rate.add(cv_rate[i]);
+			city_vaccine.add(cv[i]);
+		}
+		vaccine_data.put("city_vaccine_rate", city_vaccine_rate);
+		vaccine_data.put("city_vaccine", city_vaccine);
+		static_data.put("vaccine_data", vaccine_data);
+		
+		
+		whole_city.put("static_data", static_data);
+		
+		
 		JSONObject city_object;
 		JSONArray policy_object;
 		JSONObject people_object; 
@@ -31,8 +76,12 @@ public class JsonControl {
 			// city_num, x, y
 			city_object = new JSONObject();
 			city_object.put("city_num", cities.get(i).getNum());
-			city_object.put("x", cities.get(i).getNum());
-			city_object.put("y", cities.get(i).getNum());
+			city_object.put("x", cities.get(i).getx());
+			city_object.put("y", cities.get(i).gety());
+			city_object.put("trust", cities.get(i).getTrustIndex());
+			city_object.put("capacity", cities.get(i).getCapacity());
+			city_object.put("gold", cities.get(i).getTurnGold());
+			
 			// 2. 정책 정보
 			/*
 			policy_object = new JSONArray();
@@ -75,7 +124,12 @@ public class JsonControl {
 		}
 		whole_city.put("city_list",citylist);
 		
+		
+				
 		Json = whole_city.toJSONString();
+		
+		
+			
 		return Json;
 	}
 }

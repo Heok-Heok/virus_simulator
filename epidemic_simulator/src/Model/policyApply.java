@@ -40,20 +40,20 @@ public class policyApply {
 		int[] result = new int[cityIndexCount];
 		
 		for(int i = 0; i<result.length; i++) {
-			result[i] = 1;
+			result[i] = 0;
 		}
 		
 		for(int[] iv : pal) {
 			if(iv[0] < cityIndexCount) {
 				if(iv[1] > 0)
-					result[iv[0]] *= iv[1];
+					result[iv[0]-1] += iv[1];
 			}
 		}
 		return result;
 	}
 	
 	private void setApply() {
-		
+		pal = new ArrayList<int[]>();
 		for(policy p : c.p_list) {
 			arrange(p);
 		}
@@ -77,7 +77,9 @@ public class policyApply {
 		int index = 0 + 1;
 		int code = 0;	//0. 단순, 1, 비례, 2. 조건, 3. 비례 조건 |종료| 4. 지속, 5. 일회성
 		while((code = readCode(p, index)) < 4) {
-			System.out.println(p.getPolicyIndex() + "," + code);
+			//System.out.println(p.getPolicyIndex() + "," + code);
+			//p.printPolicyInfo();
+			//
 			result[id] = getVal(p,index);
 			result[val] = getVal(p, index+1);
 			

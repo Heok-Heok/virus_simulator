@@ -6,7 +6,7 @@ import java.lang.Thread;;
 
 class MyComponent extends JComponent
 {
-	private Person[] agents;
+	private BuildPerson[] agents;
 	private Building[] building;
 	private int view_type;
 	private int[] dotPoint;
@@ -19,22 +19,22 @@ class MyComponent extends JComponent
 		 int center_x = 300;
 		 int center_y = 300;
 		 
+		 // 1. Create Mainframe and Buildings
 		 building = new Building[5];			
-		 building[0] = new Building(5,5,500,500,0);		// building 0 would be MainFrame of simulator
-		// building[0].changeType(0);
-		 for (int i=1; i<building.length; i++) {
+		 building[0] = new Building(5,5,500,500,0);		// building[0] will be MainFrame of simulator
+		 for (int i=1; i<building.length; i++) {		// building[1~] are normal buildings
 			 building[i] = new Building(100+(i-1)*60, 100+(i-1)*60, 40, 40);
 			 System.out.println(building[i].bx1 + " " + building[i].by1);
 		 }
 		 view_type = 0;
-		 Person.b_list = building;		// copy building data to person
+		 BuildPerson.b_list = building;		// copy building data to person
 		 
-		 //Person[] agents;
-		 agents = new Person[1000]; 	// Human Class Array
+		 // 2. Create People object
+		 agents = new BuildPerson[1000]; 	// Human Class Array
 		 dotPoint = new int[agents.length*2];
 		 for (int i =0; i<agents.length;i++) {	// 
-			 distance = rnd.nextInt(200);
-			 agents[i] = new Person((int)(distance*Math.cos(2*pi/agents.length*i))+center_x,(int)(distance*Math.sin(2*pi/agents.length*i))+center_y);
+			 distance = rnd.nextInt(200);		// Set People start Position Mathmetically random
+			 agents[i] = new BuildPerson((int)(distance*Math.cos(2*pi/agents.length*i))+center_x,(int)(distance*Math.sin(2*pi/agents.length*i))+center_y);
 			 agents[i].changePlace(building[0]);
 			 //g.fillOval(agents[i].getX(), agents[i].getY(), 7, 7);
 		 }
@@ -42,20 +42,25 @@ class MyComponent extends JComponent
 
 public void paint(Graphics g)
  {
-	if (view_type == 0) {
+	// 1. Draw Mainframe
+	if (view_type == 0){		// 1.1 if view is for Mainframe (view_type = 0)
 		for (int i=0; i<building.length; i++) {
 			g.drawRect(building[i].bx1, building[i].by1, building[i].b_width, building[i].b_height);
 			//System.out.println(i);
 		 }
 	}
-	else {
+	else {						// 1.2 if view is not for MainFrame(view inside of buildings for example)
 		
 	}
+	
+	// 2. Draw People(or dots)
 	this.dots = building[view_type].getDots(this.dotPoint);
 	 for (int i =0; i<dots;i++) {
 		 g.fillOval(dotPoint[i], dotPoint[i+dots], 7, 7);
 	 }
 	 
+	 
+	 // 3. (option) Draw Sub View
 	 int offset = 120;
 	 for(int i=1; i<building.length; i++) {
 			this.dots = building[i].getDots(this.dotPoint);
@@ -66,6 +71,7 @@ public void paint(Graphics g)
 	 }
 	 
  }
+
  public void moveDots() {
 	 for (int i=0; i<agents.length;i++) {
 		 agents[i].randomMove();

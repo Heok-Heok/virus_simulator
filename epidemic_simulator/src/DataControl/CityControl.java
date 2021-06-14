@@ -10,18 +10,37 @@ public class CityControl {
 		
 	}
 	public static void createTestCity() {
-		int city_num = 5;
+		int city_num = 8;
 		
 		// 1. 도시 생성
 		City.cityList.clear();
 		//policyApply.pa.clear();
 		
+		
+		new policyApply(new City(350, 200, 220000,10));
+		new policyApply(new City(500, 300, 220000));
+		new policyApply(new City(600, 500, 220000));
+		new policyApply(new City(300, 800, 220000));
+		new policyApply(new City(900, 600, 220000));
+		
+		new policyApply(new City(750, 750, 220000));
+		new policyApply(new City(800, 900, 220000));
+		new policyApply(new City(800, 200, 220000));
+		//new policyApply(new City(1000, 100, 220000));
+		
 		for (int i=0; i<city_num; i++) {
+			/*
 			if (i==0)
-				new policyApply(new City(i*100, i*100, 220000, 10));
+				new policyApply(new City(i*100+100, i*100+100, 220000, 10));
 			else
-				new policyApply(new City(i*100, i*100, 220000));
+				new policyApply(new City(i*100+100, i*100+100, 220000));
+			*/
+			City.cityList.get(i).setGold(10);
+			City.cityList.get(i).setTrustIndex(100);
 		}
+		
+		
+		
 		// 2. 도시 연결 관리
 		int [][] connection = new int[city_num][]; 
 		for (int i=0; i<City.cityList.size(); i++) {
@@ -58,9 +77,11 @@ public class CityControl {
 		// 진행 후 log에 넣을 string 배열 리턴 
 		int cities = City.cityList.size();	// 전체 도시 수
 		
-		for (int i=0; i<cities; i++) {
 		//0. 정책 효과 적용
+		applyPolicy();
 		
+		for (int i=0; i<cities; i++) {
+			
 		//1. 바이러스 전파
 			City.cityList.get(i).progressCityVirus();
 		//1.a 백신 투여
@@ -109,4 +130,46 @@ public class CityControl {
 		
 		return input_log;
 	}
+	
+	private static void applyPolicy() {	
+		// 정책 적용
+		int[][] data_change = policyApply.getPAL();
+		int cities = City.CityCount;
+		
+		for (int i=0; i<cities; i++) {
+			Virus thisVi = City.cityList.get(i).getVi();
+			thisVi.resetChanges();
+			//* 1 : infection_rate
+			thisVi.infectionChange((double)(data_change[i][0])*0.01);
+			//* 2 : death_rate
+			thisVi.deathChange((double)(data_change[i][1])*0.001);
+			
+			//* 3 : trust_index
+			City.cityList.get(i).addTrustIndex(data_change[i][2]);
+			
+			//* 4 : turn_gold
+			City.total_gold += data_change[i][3];
+			
+			//* 5 : city_flow
+			City.cityList.get(i).setFlowRate();
+			City.cityList.get(i).chageFlowRate((double)(data_change[i][4])*0.1);
+			//* 6 : population youth_rate
+			//* 7 : population middle_rate
+			//* 8 : population old_rate
+			//* 9 : vaccine distribute
+			//* 10 : capacity
+			City.cityList.get(i).addCapacity(data_change[i][9]);
+			//* 11 : selection rate
+			thisVi.selectionChange((double)(data_change[i][10]));
+			//* 12
+			//* 13
+			//* 14
+		}
+		 //* 15 : research progress
+		 //* 16 : research step
+		 //* 17 : vaccine production
+		 //* 18 : mask_production		
+	}
 }
+
+

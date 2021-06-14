@@ -28,7 +28,7 @@ public class Component_test extends JFrame {
 		
 		//setContentPane(new JLabel(new ImageIcon("D:\\map.png")));
         //setLayout(new FlowLayout());
-        l1 = new JLabel(new ImageIcon("D:\\map.png"));
+		//l1 = new JLabel(new ImageIcon("D:\\map.png"));
 
         setSize(1200,1081);
 		l1.setSize(1000,1000);
@@ -37,6 +37,8 @@ public class Component_test extends JFrame {
 		
 		setSize(800, 800);
 		setVisible(true);
+		
+		
 		
 	}
 	

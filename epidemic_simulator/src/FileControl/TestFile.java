@@ -7,9 +7,9 @@ import DataControl.*;
 public class TestFile {
 
 	public static void main(String[] args) {
-		//json_test();
+		json_test();
 		//policyListReadTest();
-		policyTest();
+		//policyTest();
 		System.out.println("Done!");
 		
 	}
@@ -77,7 +77,7 @@ public class TestFile {
 		int v_production = 100;
 		double v_distribute = 0.2;
 		
-		for (int i=0; i< 50; i++) {
+		for (int i=0; i< 3000; i++) {
 			input_log = CityControl.gameProgress();
 			
 			CSVcontrol.addArray(i, input_log);
@@ -186,11 +186,11 @@ public class TestFile {
 			City.cityList.get(0).addPolicy(policy.policy_list[list[0][i]]);
 		}
 		*/
-		City.cityList.get(0).addPolicy(policy.policy_list[5]);
+		//City.cityList.get(0).addPolicy(policy.policy_list[0]);
 		City.cityList.get(0).addPolicy(policy.policy_list[1]);
-		City.cityList.get(0).addPolicy(policy.policy_list[25]);
+		//City.cityList.get(0).addPolicy(policy.policy_list[25]);
 		
-		for (int l=0; l<2; l++) {
+		for (int l=0; l<3; l++) {
 			int [][] check = policyApply.getPAL();
 			
 			row = check.length;

@@ -161,6 +161,9 @@ public class policy {
 	public int getRequireGold() {
 		return this.require_gold;
 	}
+	public String getPolicyType() {
+		return this.policy_type;
+	}
 	public void printPolicyInfo() {
 		System.out.println(this.getPolicyIndex() + " : "  + this.getPolicyName());
 		System.out.println("gold : " + this.getRequireGold());
@@ -175,6 +178,14 @@ public class policy {
 			check = check.next;
 		}
 		System.out.println();
+	}
+	public static int searchPolicyString(String name) {
+		for(int i=0; i<policy_list.length; i++) {
+			if(name.equals(policy_list[i].getPolicyName())) {
+				return i;
+			}
+		}
+		return -1;
 	}
 	
 	// ===================================

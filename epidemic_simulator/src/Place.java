@@ -22,11 +22,11 @@ public class Place {
 		this.in_person=0;
 	}
 	
-	public void addPerson(Person p) {
+	public void addPerson(BuildPerson p) {
 		this.plist.addPerson(p);
 		this.in_person += 1;
 	}
-	public void deletePerson(Person p) {
+	public void deletePerson(BuildPerson p) {
 		this.plist.deletePerson(p);
 		this.in_person -= 1;
 	}
@@ -44,21 +44,21 @@ public class Place {
 
 class ListPerson{
 	ListPerson next;
-	private Person p;
+	private BuildPerson p;
 	
 	ListPerson(){
 		this.next = null;
 		this.p = null;
 	}
-	ListPerson(Person p){
+	ListPerson(BuildPerson p){
 		this.next = null;
 		this.p = p;
 	}
-	Person getPerson() {
+	BuildPerson getPerson() {
 		return this.p;
 	}
 	
-	void addPerson(Person p){
+	void addPerson(BuildPerson p){
 		if (this.next == null) {
 			this.next = new ListPerson(p);
 		}
@@ -66,7 +66,7 @@ class ListPerson{
 			this.next.addPerson(p);
 		}
 	}
-	void deletePerson(Person p) {
+	void deletePerson(BuildPerson p) {
 		if (this.next.p == p) {
 			this.next = this.next.next;
 		}
